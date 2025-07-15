@@ -110,6 +110,8 @@ def vocab():
     vocab.save_vocab(options["vocab_path"])
     return(len(vocab))
 
+    
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()

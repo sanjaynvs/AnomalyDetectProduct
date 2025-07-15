@@ -50,7 +50,7 @@ def parser(input_dir, output_dir, log_file, log_format):
     depth = 10  # Depth of all leaf nodes
 
     parser = Drain.LogParser(log_format, indir=input_dir, outdir=output_dir, depth=depth, st=st, rex=regex, keep_para=False)
-    parser.parse(log_file)
+    return parser.parse(log_file)
 
 
 def deeplog_sampling(log_file, window='session'):
@@ -92,6 +92,7 @@ def generate_train_test(compute_instance_file, n=None, ratio=0.7):
         computeInst_label_dict[row["ComputeInstance"]] = 1 if row["Label"] == "Anomaly" else 0
 
     # print(computeInst_label_dict)
+    print("compute_instance_file", compute_instance_file)
     seq = pd.read_csv(compute_instance_file)
     # print(computeInst_label_dict.head())
     seq["Label"] = seq["ComputeInstance"].apply(lambda x: computeInst_label_dict.get(x)) #add label to the sequence of each ComputeInstance
@@ -113,6 +114,7 @@ def generate_train_test(compute_instance_file, n=None, ratio=0.7):
     df_to_file(test_normal, output_dir + "test_normal")
     df_to_file(test_abnormal, output_dir + "test_abnormal")
     print("generate train test data done")
+    return str("normal size {0}, abnormal size {1}, training size {2}".format(normal_len, abnormal_len, train_len))
 
 
 def df_to_file(df, file_name):

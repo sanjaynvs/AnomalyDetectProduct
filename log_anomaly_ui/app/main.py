@@ -1,32 +1,18 @@
-# from typing import Union
-
-# from fastapi import FastAPI
-
-# app = FastAPI()
-
-# @app.get("/")
-# def read_root():
-#     print("Hello World")
-#     return {"Hello": "World"}
-
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
 
 from fastapi import FastAPI, Request, File, UploadFile, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-import shutil, os
-from .config import UPLOAD_DIR
+import shutil, os,sys
+from .config import UPLOAD_DIR, TRAIN_DIR
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # from deeplog import train
 # from data_process_pred import 
 # from models.loganomaly import train_loganomaly
-
+from uiUtilities import ui_predict, ui_train
 app = FastAPI()
 # UPLOAD_DIR = "app/uploads"
-templates = Jinja2Templates(directory="app/templates")
+templates = Jinja2Templates(directory="log_anomaly_ui/app/templates")
 # os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.get("/", response_class=HTMLResponse)
@@ -42,7 +28,7 @@ async def show_upload_form(request: Request):
 
 @app.post("/trainUpload/")
 async def handle_train_upload(request: Request, log_file: UploadFile = File(...), label_file: UploadFile = File(...)):
-    print("UPLOAD_DIR: ", UPLOAD_DIR)
+    print("handle_train_upload UPLOAD_DIR: ", UPLOAD_DIR)
     log_path = os.path.join(UPLOAD_DIR, log_file.filename)
     label_path = os.path.join(UPLOAD_DIR, label_file.filename)
 
@@ -55,5 +41,6 @@ async def handle_train_upload(request: Request, log_file: UploadFile = File(...)
 
 @app.post("/preprocess/")
 async def do_preprocess(request: Request, logformat: str = Form(...)):
-    
-    return {"logformat": logformat}
+    print("in do_preprocess:", UPLOAD_DIR)
+    preProcResult = ui_train(input_dir=UPLOAD_DIR, output_dir=TRAIN_DIR)
+    return {preProcResult}

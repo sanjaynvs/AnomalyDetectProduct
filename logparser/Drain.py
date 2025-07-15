@@ -415,6 +415,7 @@ class LogParser:
         self.outputResult(logCluL)
 
         print('Parsing done. [Time taken: {!s}]'.format(datetime.now() - start_time))
+        return 'Parsing done. [Time taken: {!s}]'.format(datetime.now() - start_time)
 
     def parse_pred(self, logName, mode='train'):
         print('Parsing file: ' + os.path.join(self.path, logName))

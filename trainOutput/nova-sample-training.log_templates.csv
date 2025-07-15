@@ -1,0 +1,52 @@
+,EventId,EventTemplate,Occurrences,templateIndex
+0,47f4680b,[instance: <*>] During sync_power_state the instance has a pending task <*> Skip.,1364,1
+1,74098f89,[instance: <*>] VM Stopped (Lifecycle Event),823,2
+2,e62ddd64,[instance: <*>] VM Started (Lifecycle Event),816,3
+3,3f57c2b3,[instance: <*>] VM Paused (Lifecycle Event),807,4
+4,5368444d,[instance: <*>] Deletion of <*>/<*>_del complete,805,5
+5,93995b30,[instance: <*>] Instance destroyed successfully.,756,6
+6,50e0ef31,[instance: <*>] Creating image,726,7
+7,06476222,[instance: <*>] Terminating instance,723,8
+8,597630e5,Deleted allocation for instance <*>,713,9
+9,a4ab0dee,[instance: <*>] Took <*> seconds to destroy the instance on the hypervisor.,701,10
+10,652a820e,[instance: <*>] Took <*> seconds to deallocate network for instance.,688,11
+11,d1d96458,[instance: <*>] Claim successful on node parisaserver,673,12
+12,8ab37e7b,[instance: <*>] Deleting instance files <*>/<*>_del,642,13
+13,16b764ff,[instance: <*>] VM Resumed (Lifecycle Event),611,14
+14,796fd834,[instance: <*>] Instance spawned successfully.,600,15
+15,9f276c62,[instance: <*>] Took <*> seconds to spawn the instance on the hypervisor.,590,16
+16,e51c49ab,[instance: <*>] Took <*> seconds to build instance.,577,17
+17,ba413d06,req-<*> service nova] [instance: <*>] Neutron deleted interface <*>; detaching it from the instance and deleting it from the info cache,390,18
+18,63184ec7,Error from libvirt while getting description of <*> [Error Code <*>] Domain not found: no domain with matching uuid '<*>' <*> <*>Error: Domain not found: no domain with matching uuid '<*>' <*>,47,19
+19,59b44970,[instance: <*>] Instance failed to spawn: <*>.VirtualInterfaceCreateException: Virtual Interface creation failed,45,20
+20,c3ff416c,[instance: <*>] Received unexpected event network-vif-unplugged-<*> for instance with vm_state <*> and task_state <*>,43,21
+21,a348963d,[instance: <*>] Failed to allocate network(s): <*>.VirtualInterfaceCreateException: Virtual Interface creation failed,40,22
+22,b65aa60f,"[instance: <*>] Build of instance <*> aborted: Failed to allocate the network(s), not rescheduling.: <*>.BuildAbortException: Build of instance <*> aborted: Failed to allocate the network(s), not rescheduling.",39,23
+23,5ee73efd,"[instance: <*>] Timeout waiting for [('network-vif-plugged', '<*>')] for instance with vm_state building and task_state spawning.: <*>.Timeout: <*> seconds",37,24
+24,24a4c39b,[instance: <*>] Received unexpected event network-vif-plugged-<*> for instance with vm_state building and task_state spawning.,34,25
+25,d9bebcc2,"[instance: <*>] Instance shutdown by itself. Calling the stop API. Current vm_state: active, current task_state: None, original DB power_state: <*>, current VM power_state: <*>",29,26
+26,debd9ef7,[instance: <*>] During _sync_instance_power_state the DB power_state (<*>) does not match the vm_power_state from the hypervisor (<*>). Updating power_state in the DB to match the hypervisor.,27,27
+27,71bfdbd2,[instance: <*>] Instance failed to spawn: <*>Error: Domain not found: no domain with matching uuid '<*>' <*>,18,28
+28,3e6f82d2,[instance: <*>] Failed to start libvirt guest: <*>Error: internal error: qemu unexpectedly closed the monitor: <*>-<*>-<*>T<*>:<*>:<*>Z qemu-system-x<*>_<*>: terminating on signal <*> from pid <*> (<*>),17,29
+29,53949758,"Periodic task is updating the host stats, it is trying to get disk info for <*> but the backing disk storage was removed by a concurrent operation such as resize. Error: No disk at <*>/<*><*>: <*>.DiskNotFound: No disk at <*>/<*><*>",17,30
+30,40db624f,[instance: <*>] Neutron deleted interface <*>; detaching it from the instance and deleting it from the info cache,16,31
+31,2e05da3b,[instance: <*>] Failed to build and run instance: <*>Error: internal error: qemu unexpectedly closed the monitor: <*>-<*>-<*>T<*>:<*>:<*>Z qemu-system-x<*>_<*>: terminating on signal <*> from pid <*> (<*>),14,32
+32,4f37a9a2,[instance: <*>] Instance is already powered off in the hypervisor when stop is called.,12,33
+33,b42f4be2,[instance: <*>] error during stop() in sync_power_state.: <*>_Remote.UnexpectedTaskStateError_Remote: Conflict updating instance <*>. Expected: {'task_state': [None]}. Actual: {'task_state': 'powering-off'},12,34
+34,d60614e4,[instance: <*>] Instance failed to spawn: <*>Error: internal error: qemu unexpectedly closed the monitor: <*>-<*>-<*>T<*>:<*>:<*>Z qemu-system-x<*>_<*>: terminating on signal <*> from pid <*> (<*>),12,35
+35,d4a152da,Instance <*> has allocations against this compute host but is not found in the database.,9,36
+36,401a7c1f,"Instance <*> is not being actively managed by this compute host but has allocations referencing this compute host: {'resources': {'DISK_GB': <*>, 'MEMORY_MB': <*>, 'VCPU': <*>}}. Skipping heal of allocation because we do not know what to do.",7,37
+37,eb263528,[instance: <*>] Failed to start libvirt guest: <*>Error: internal error: process exited while connecting to monitor: <*>-<*>-<*>T<*>:<*>:<*>Z qemu-system-x<*>_<*>: terminating on signal <*> from pid <*> (<*>),6,38
+38,20abea46,[instance: <*>] Failed to build and run instance: <*>Error: Requested operation is not valid: domain is not running,2,39
+39,8dbaee66,[instance: <*>] Instance failed block device setup: <*>.VolumeNotCreated: Volume <*> did not finish being created even after we waited <*> seconds or <*> attempts. And its status is error.,2,40
+40,428f3992,[instance: <*>] Instance failed to spawn: <*>Error: Requested operation is not valid: domain is not running,2,41
+41,16484c33,"[instance: <*>] Instance failed to spawn: <*>.FlavorDiskSmallerThanImage: Flavor's disk is too small for requested image. Flavor disk is <*> bytes, image is <*> bytes.",1,42
+42,c9a69f78,"[instance: <*>] Build of instance <*> aborted: Flavor's disk is too small for requested image. Flavor disk is <*> bytes, image is <*> bytes.: <*>.BuildAbortException: Build of instance <*> aborted: Flavor's disk is too small for requested image. Flavor disk is <*> bytes, image is <*> bytes.",1,43
+43,e4ef726c,[instance: <*>] Ignoring supplied device name: <*>. Libvirt can't honour user-supplied dev names,1,44
+44,74545fe3,[instance: <*>] Build of instance <*> aborted: Volume <*> did not finish being created even after we waited <*> seconds or <*> attempts. And its status is error.: <*>.BuildAbortException: Build of instance <*> aborted: Volume <*> did not finish being created even after we waited <*> seconds or <*> attempts. And its status is error.,1,45
+45,2a7e6889,[instance: <*>] Get console output,1,46
+46,fc398b29,[instance: <*>] Booting with volume-backed-image <*> at <*>,1,47
+47,c516c517,[instance: <*>] Failed to start libvirt guest: <*>Error: internal error: process exited while connecting to monitor,1,48
+48,52787bb9,[instance: <*>] Instance failed to spawn: <*>Error: internal error: process exited while connecting to monitor: <*>-<*>-<*>T<*>:<*>:<*>Z qemu-system-x<*>_<*>: terminating on signal <*> from pid <*> (<*>),1,49
+49,31f01b3f,[instance: <*>] Failed to build and run instance: <*>Error: internal error: process exited while connecting to monitor: <*>-<*>-<*>T<*>:<*>:<*>Z qemu-system-x<*>_<*>: terminating on signal <*> from pid <*> (<*>),1,50
+50,58f005aa,[instance: <*>] Instance failed to spawn: <*>Error: internal error: process exited while connecting to monitor,1,51

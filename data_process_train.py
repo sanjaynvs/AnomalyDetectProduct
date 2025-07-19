@@ -60,7 +60,6 @@ def deeplog_sampling(log_file, window='session'):
     df = pd.read_csv(log_file, engine='c',
             na_filter=False, memory_map=True, dtype={'Date':object, "Time": object})
     
-    
 
     with open(output_dir + "deeplog_log_templates.json", "r") as f:
         event_num = json.load(f)

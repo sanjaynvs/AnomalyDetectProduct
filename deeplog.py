@@ -94,6 +94,9 @@ def train():
     trainer = Trainer(Model, options)
     trainer.start_train()
 
+def set_vocab_size(vocab_size):
+    options["vocab_size"] = vocab_size
+
 
 def predict():
     print("options[sequentials]...", options['sequentials'])

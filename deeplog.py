@@ -98,8 +98,8 @@ def train():
 def predict():
     print("options[sequentials]...", options['sequentials'])
     predicter = Predicter(Model, options)
-    os = predicter.predict_unsupervised()
-    # os = predicter.predict_unsupervised_2()
+    # os = predicter.predict_unsupervised()
+    os = predicter.predict_unsupervised_2()
     return os
 
 def vocab():
@@ -109,8 +109,6 @@ def vocab():
     print("vocab_size", len(vocab))
     vocab.save_vocab(options["vocab_path"])
     return(len(vocab))
-
-    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

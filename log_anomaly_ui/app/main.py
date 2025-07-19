@@ -43,4 +43,8 @@ async def handle_train_upload(request: Request, log_file: UploadFile = File(...)
 async def do_preprocess(request: Request, logformat: str = Form(...)):
     print("in do_preprocess:", UPLOAD_DIR)
     preProcResult = ui_train(input_dir=UPLOAD_DIR, output_dir=TRAIN_DIR)
-    return {preProcResult}
+    return preProcResult
+
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=8001)

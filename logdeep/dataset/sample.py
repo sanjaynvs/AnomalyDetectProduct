@@ -104,11 +104,11 @@ def split_features(data_path, train_ratio=1, scale=None, scale_path=None, min_le
 
 
 def sliding_window(data_iter, vocab, window_size, is_train=True):
-    print("In sliding window: print vocab...")
-    print(vocab.stoi.get("10", vocab.unk_index))
+    # print("In sliding window: print vocab...")
+    # print(vocab.stoi.get("10", vocab.unk_index))
 
-    for token, index in vocab.stoi.items():
-        print(f"{token} - {index}")
+    # for token, index in vocab.stoi.items():
+        # print(f"{token} - {index}")
 
     '''
     dataset structure
@@ -133,46 +133,46 @@ def sliding_window(data_iter, vocab, window_size, is_train=True):
     # print("start sliding window...templine",data_iter[0])
 
     tempParam = zip(*data_iter)
-    for line, params in tempParam:
-        print("In sliding window: for loop ... line...",line)
-        print("In sliding window: for loop ... params...",params)
+    # for line, params in tempParam:
+        # print("In sliding window: for loop ... line...",line)
+        # print("In sliding window: for loop ... params...",params)
     # data_iter = zip(tempLine, tempParam)
     # print("In sliding window: tempParam...",tempParam)
-    for line, params in zip(*data_iter):
-        print(f"Original line: {line}")
-        print(f"Line elements: {list(line)}")
-        print(f"Line elements str: {list(str(line))}")
-        print(f"Element types: {[type(ln) for ln in line]}")
+    # for line, params in zip(*data_iter):
+        # print(f"Original line: {line}")
+        # print(f"Line elements: {list(line)}")
+        # print(f"Line elements str: {list(str(line))}")
+        # print(f"Element types: {[type(ln) for ln in line]}")
         
         # Process each element and show the mapping
-        result = []
-        for i, ln in enumerate(line):
-            mapped_value = vocab.stoi.get(ln, vocab.unk_index)
-            print(f"Element {i}: {ln} -> {mapped_value}")
-            result.append(mapped_value)
+        # result = []
+        # for i, ln in enumerate(line):
+        #     mapped_value = vocab.stoi.get(ln, vocab.unk_index)
+        #     print(f"Element {i}: {ln} -> {mapped_value}")
+        #     result.append(mapped_value)
         
-        print(f"Final result: {result}")
-        break  # Just check first iteration
+        # print(f"Final result: {result}")
+        # break  # Just check first iteration
     
     for line, params in zip(*data_iter):
         if num_sessions % 1000 == 0:
             print("processed %s lines"%num_sessions, end='\r')
         num_sessions += 1
-        print("In sliding window: line...",line)
+        # print("In sliding window: line...",line)
   
         # line = str(line)
         # line = [line]
         line = [vocab.stoi.get(ln, vocab.unk_index) for ln in line]
         # line = vocab.stoi.get(str(line), vocab.unk_index)
-        print("in slider window: line before padding...",line)
-        print("in slider window: len(line)...",len(line))
-        print("in slider window: window_size...",window_size)
+        # print("in slider window: line before padding...",line)
+        # print("in slider window: len(line)...",len(line))
+        # print("in slider window: window_size...",window_size)
 
         session_len = max(len(line), window_size) + 1# predict the next one
         padding_size = session_len - len(line)
         params = params + [0] * padding_size
         line = line + [vocab.pad_index] * padding_size
-        print("in slider window: line after padding...",line)
+        # print("in slider window: line after padding...",line)
 
         for i in range(session_len - window_size):
             Parameter_pattern = params[i:i + window_size]
@@ -195,10 +195,10 @@ def sliding_window(data_iter, vocab, window_size, is_train=True):
             result_logs['Semantics'].append(Semantic_pattern)
             result_logs["Parameters"].append(Parameter_pattern)
             
-            print("in slider window: len(line)...",len(line))
-            print("in slider window: i....",i)
-            print("in slider window: i + window_size",i + window_size)
-            print("in slider window: line[i + window_size]",line[i + window_size])
+            # print("in slider window: len(line)...",len(line))
+            # print("in slider window: i....",i)
+            # print("in slider window: i + window_size",i + window_size)
+            # print("in slider window: line[i + window_size]",line[i + window_size])
             labels.append(line[i + window_size])
 
     if is_train:

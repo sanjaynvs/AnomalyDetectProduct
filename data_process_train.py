@@ -12,7 +12,8 @@ from logparser import Drain
 # get [log key, delta time] as input for deeplog
 input_dir  = './trainInput/'
 output_dir = './trainOutput/'  # The output directory of parsing results
-log_file   = "nova-sample-training.log"
+# log_file   = "nova-sample-training.log"
+log_file   = "nova-sample.log"
 log_structured_file = output_dir + log_file + "_structured.csv"
 # log_structured_file = output_dir + "common2_structured.csv"
 log_templates_file = output_dir + log_file + "_templates.csv"

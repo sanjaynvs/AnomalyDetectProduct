@@ -210,16 +210,19 @@ class Predicter():
         test_results = []
         normal_errors = []
         retAnomalies = []
-
+        print("in unspervize helper_2...")
+        print(type(data_iter))
         # num_test = len(data_iter)
         # rand_index = torch.randperm(num_test)
         # rand_index = rand_index[:int(num_test * self.test_ratio)]
 
         with torch.no_grad():
             for idx, line in tqdm(enumerate(data_iter)):
+                print("in unsupervised_helper_2....idx....",idx)
+                
                 # if idx not in rand_index:
                 #     continue
-                # print("in unsupervised_helper_2....",line)
+                print("in unsupervised_helper_2....",line)
                 line = line.strip().split(",",1)
                 # line = [ln.split(",") for ln in line.split()]
                 print("line: ",line)
@@ -241,9 +244,9 @@ class Predicter():
                 # int_list = list(map(int, line[1].strip('"[]').split(",")))
                 line = np.array(line)
                 # line = np.array(line[1])
-                print("line: post np.array...",line)
+                # print("line: post np.array...",line)
 
-                print("line.shape...",line.shape)
+                # print("line.shape...",line.shape)
 
                 # print("line.shape[0]...",line.shape[0])
                 # # if time duration exists in data
@@ -263,12 +266,12 @@ class Predicter():
                     tim = np.array(tim).reshape(-1,1)
                     tim = scale.transform(tim).reshape(-1).tolist()
                 
-                print("[logkey.tolist()]: ",[logkey.tolist()])
-                print("[tim.tolist()]: ",[tim.tolist()])
+                # print("[logkey.tolist()]: ",[logkey.tolist()])
+                # print("[tim.tolist()]: ",[tim.tolist()])
 
                 logkeys, times = [str(x) for x in logkey.tolist()], [tim.tolist()] # add next axis
-                print("in unsupervised_helper_2...logkeys type, after conversion: ",type(logkeys))
-                print("in unsupervised_helper_2...logkeys type: ",type(logkeys))
+                # print("in unsupervised_helper_2...logkeys type, after conversion: ",type(logkeys))
+                # print("in unsupervised_helper_2...logkeys type: ",type(logkeys))
                 logs, labels = sliding_window((logkeys, times), vocab, window_size=self.window_size, is_train=False)
                 
                 dataset = log_dataset(logs=logs,
@@ -289,6 +292,8 @@ class Predicter():
                 num_predicted_logkey = 0
                 
                 for _, (log, label) in enumerate(data_loader):
+                    print("in unsupervised_helper_2:log",log)
+                    print("in unsupervised_helper_2:log",label)
                     features = []
                     for value in log.values():
                         features.append(value.clone().detach().to(self.device))
@@ -422,6 +427,64 @@ class Predicter():
         outputResultString = pred_results
         return outputResultString
     
+    def predict_unsupervised_3(self, seq_tokens):
+        model = self.model.to(self.device)
+        model.load_state_dict(torch.load(self.model_path)['state_dict'])
+        model.eval()
+        print('model_path: {}'.format(self.model_path))
+
+        with open(self.vocab_path, 'rb') as f:
+            vocab = pickle.load(f)
+
+        # pred_loader, _ = generate(self.output_dir, 'pred_ds')
+        # pred_loader, _ = generate_2('./predOutput/', 'event_sequence.csv')
+        # pred_loader, _ = generate('./predOutput/', 'predfile')
+        pred_loader = seq_tokens
+        print("in predict_unsupervised_3...pred_loader...",pred_loader)
+        # test_abnormal_loader, _ = generate(self.output_dir, 'test_abnormal')
+        
+        scale = None
+        if self.is_time:
+            with open(self.save_dir + "scale.pkl", "rb") as f:
+                scale = pickle.load(f)
+
+        # Test the model
+        start_time = time.time()
+        pred_results, pred_errors = self.unsupervised_helper_2(model, pred_loader, vocab, 'pred_ds', scale=scale, min_len=self.min_len)
+        # test_abnormal_results, abnormal_errors = self.product_unsupervised_helper(model, test_abnormal_loader, vocab, 'test_abnormal', scale=scale, min_len=self.min_len)
+
+        # print("Saving test normal results", self.save_dir + "test_normal_results")
+        # with open(self.save_dir + "test_normal_results", "wb") as f:
+        #     pickle.dump(test_normal_results, f)
+
+        # print("Saving test abnormal results", self.save_dir + "test_abnormal_results")
+        # with open(self.save_dir + "test_abnormal_results", "wb") as f:
+        #     pickle.dump(test_abnormal_results, f)
+
+        # TH, TP, TN, FP, FN, P, R, F1 = self.find_best_threshold(test_normal_results,
+        #                                                         test_abnormal_results,
+        #                                                         threshold_range=np.arange(10))
+
+        print("pred_results\n", pred_results)
+        print("pred_errors\n", pred_errors)
+
+
+        # self.compute_anomaly(pred_results, pred_errors)
+        # print('Best threshold', TH)
+        # outputResultString = f'<br>Best threshold: {TH}'+"<br>"
+
+        # print("Confusion matrix")
+        # print("TP: {}, TN: {}, FP: {}, FN: {}".format(TP, TN, FP, FN))
+        # outputResultString = outputResultString + 'Best threshold ' + "TP: {0}, TN: {1}, FP: {2}, FN: {3}".format(TP, TN, FP, FN) +"<br>"
+        # print('Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(P, R, F1))
+        # outputResultString = outputResultString + 'Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(P, R, F1)+"<br>"
+        # elapsed_time = time.time() - start_time
+        # print('elapsed_time: {}'.format(elapsed_time))
+        # outputResultString = outputResultString + 'elapsed_time: {}'.format(elapsed_time)
+        outputResultString = pred_results
+        return outputResultString
+    
+
     def predict_supervised(self):
         model = self.model.to(self.device)
         model.load_state_dict(torch.load(self.model_path)['state_dict'])
